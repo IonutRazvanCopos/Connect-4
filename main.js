@@ -72,7 +72,6 @@ function changeColor() {
 let cj = [7, 1, 6, 8];
 
 function checkWin() {
-    console.log("aa");
     let r = "red", y = "yellow";
     for (let ft = 0; ft < 4; ++ft) {
         for (let j = 0; j < 42; ++j) {
