@@ -2,93 +2,59 @@ let currentPlayer = "red";
 const piece = document.getElementsByClassName(".piece");
 const container = document.querySelector("#board");
 const message = document.getElementById('message');
-let gameOver = 0, winR = 0, winY = 0, winner = 0
+let gameOver = 0, winR = 0, winY = 0, winner = 0;
 
-let nr1 = 35, nr2 = 36, nr3 = 37, nr4 = 38, nr5 = 39, nr6 = 40, nr7 = 41;
-let col1 = [container.children[0].id, container.children[7].id, container.children[14].id, container.children[21].id,
-container.children[28].id, container.children[35].id];
-let col2 = [container.children[1].id, container.children[8].id, container.children[15].id, container.children[22].id,
-container.children[29].id, container.children[36].id];
-let col3 = [container.children[2].id, container.children[9].id, container.children[16].id, container.children[23].id,
-container.children[30].id, container.children[37].id];
-let col4 = [container.children[3].id, container.children[10].id, container.children[17].id, container.children[24].id,
-container.children[31].id, container.children[38].id];
-let col5 = [container.children[4].id, container.children[11].id, container.children[18].id, container.children[25].id,
-container.children[32].id, container.children[39].id];
-let col6 = [container.children[5].id, container.children[12].id, container.children[19].id, container.children[26].id,
-container.children[33].id, container.children[40].id];
-let col7 = [container.children[6].id, container.children[13].id, container.children[20].id, container.children[27].id,
-container.children[34].id, container.children[41].id];
+let cont = container.children;
+
+let col = [
+    [cont[0].id, cont[7].id, cont[14].id, cont[21].id,
+cont[28].id, cont[35].id],
+[cont[1].id, cont[8].id, cont[15].id, cont[22].id,
+cont[29].id, cont[36].id],
+[cont[2].id, cont[9].id, cont[16].id, cont[23].id,
+cont[30].id, cont[37].id],
+[cont[3].id, cont[10].id, cont[17].id, cont[24].id,
+cont[31].id, cont[38].id],
+[cont[4].id, cont[11].id, cont[18].id, cont[25].id,
+cont[32].id, cont[39].id],
+[cont[5].id, cont[12].id, cont[19].id, cont[26].id,
+cont[33].id, cont[40].id],
+[cont[6].id, cont[13].id, cont[20].id, cont[27].id,
+cont[34].id, cont[41].id]
+];
+
+function checkNr(num) {
+    while (num < 35) {
+        num += 7;
+    }
+    while (cont[num].id == "red" || cont[num].id == "yellow") {
+        num -= 7;
+    }
+    return num;
+}
 
 function setPiece() {
     let once = 0;
-    checkWin();
     if (gameOver) {
         return;
     }
     container.addEventListener("click", (event) => {
         let e = event.target;
-        for (let i = 0; i < 7 && once == 0; ++i) {
-            if (e.id == col1[i] && nr1 > -1) {
-                container.children[nr1].style.backgroundColor = currentPlayer;
-                container.children[nr1].id = `${currentPlayer}`;
-                changeColor();
-                checkWin();
-                nr1 -= 7;
-            }
+        let num = parseInt(`${e.id}`);
+        if (num < 42) {
+            num = checkNr(num);
+        } else {
+            once = 1;
         }
-        for (let i = 0; i < 7 && once == 0; ++i) {
-            if (e.id == col2[i] && nr2 > 0) {
-                container.children[nr2].style.backgroundColor = currentPlayer;
-                container.children[nr2].id = `${currentPlayer}`;
-                changeColor();
-                checkWin();
-                nr2 -= 7;
-            }
-        }
-        for (let i = 0; i < 7 && once == 0; ++i) {
-            if (e.id == col3[i] && nr3 > 1) {
-                container.children[nr3].style.backgroundColor = currentPlayer;
-                container.children[nr3].id = `${currentPlayer}`;
-                changeColor();
-                checkWin();
-                nr3 -= 7;
-            }
-        }
-        for (let i = 0; i < 7 && once == 0; ++i) {
-            if (e.id == col4[i] && nr4 > 2) {
-                container.children[nr4].style.backgroundColor = currentPlayer;
-                container.children[nr4].id = `${currentPlayer}`;
-                changeColor();
-                checkWin();
-                nr4 -= 7;
-            }
-        }
-        for (let i = 0; i < 7 && once == 0; ++i) {
-            if (e.id == col5[i] && nr5 > 3) {
-                container.children[nr5].style.backgroundColor = currentPlayer;
-                container.children[nr5].id = `${currentPlayer}`;
-                changeColor();
-                checkWin();
-                nr5 -= 7;
-            }
-        }
-        for (let i = 0; i < 7 && once == 0; ++i) {
-            if (e.id == col6[i] && nr6 > 4) {
-                container.children[nr6].style.backgroundColor = currentPlayer;
-                container.children[nr6].id = `${currentPlayer}`;
-                changeColor();
-                checkWin();
-                nr6 -= 7;
-            }
-        }
-        for (let i = 0; i < 7 && once == 0; ++i) {
-            if (e.id == col7[i] && nr7 > 5) {
-                container.children[nr7].style.backgroundColor = currentPlayer;
-                container.children[nr7].id = `${currentPlayer}`;
-                changeColor();
-                checkWin();
-                nr7 -= 7;
+        for (let i = 0; i < 8 && once == 0; ++i) {
+            for (let j = 0; j < 7 && once == 0; ++j) {
+                if (e.id == col[i][j]) {
+                    cont[num].style.backgroundColor = currentPlayer;
+                    cont[num].id = `${currentPlayer}`;
+                    changeColor();
+                    checkWin();
+                    once = 1;
+                }
             }
         }
         once = 1;
@@ -103,19 +69,20 @@ function changeColor() {
     }
 }
 
-let array = [7, 1, 6, 8];
+let cj = [7, 1, 6, 8];
 
 function checkWin() {
+    console.log("aa");
     let r = "red", y = "yellow";
     for (let ft = 0; ft < 4; ++ft) {
         for (let j = 0; j < 42; ++j) {
             for (let i = j; i < 42; i += cj[ft]) {
-                if (container.children[i].id == r) {
+                if (cont[i].id == r) {
                     ++winR;
                 } else {
                     winR = 0;
                 }
-                if (container.children[i].id == y) {
+                if (cont[i].id == y) {
                     ++winY;
                 } else {
                     winY = 0;
@@ -129,6 +96,8 @@ function checkWin() {
                     message.textContent = `${currentPlayer} won!`
                 }
             }
+            winR = 0;
+            winY = 0;
         }
     }
 }
