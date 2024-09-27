@@ -103,93 +103,31 @@ function changeColor() {
     }
 }
 
+let array = [7, 1, 6, 8];
+
 function checkWin() {
     let r = "red", y = "yellow";
-    for (let j = 35, c = -1; j < 42; ++j, ++c) {
-        for (let i = j; i > c; i -= 7) {
-            if (container.children[i].id == r) {
-                ++winR;
-            } else {
-                winR = 0;
-            }
-            if (container.children[i].id == y) {
-                ++winY;
-            } else {
-                winY = 0;
-            }
-            if (winR == 4 || winY == 4) {
-                gameOver = 1;
-                if (!winner) {
-                    changeColor();
-                    winner = 1;
+    for (let ft = 0; ft < 4; ++ft) {
+        for (let j = 0; j < 42; ++j) {
+            for (let i = j; i < 42; i += cj[ft]) {
+                if (container.children[i].id == r) {
+                    ++winR;
+                } else {
+                    winR = 0;
                 }
-                message.textContent = `${currentPlayer} won!`
-            }
-        }
-    }
-    for (let j = 6, c = 0; j < 42; j += 7, c += 7) {
-        for (let i = j; i > c; --i) {
-            if (container.children[i].id == r) {
-                ++winR;
-            } else {
-                winR = 0;
-            }
-            if (container.children[i].id == y) {
-                ++winY;
-            } else {
-                winY = 0;
-            }
-            if (winR == 4 || winY == 4) {
-                gameOver = 1;
-                if (!winner) {
-                    changeColor();
-                    winner = 1;
+                if (container.children[i].id == y) {
+                    ++winY;
+                } else {
+                    winY = 0;
                 }
-                message.textContent = `${currentPlayer} won!`
-            }
-        }
-    }
-    for (let j = 41; j > 26; --j) {
-        for (let i = j; i > 0; i -= 8) {
-            if (container.children[i].id == r) {
-                ++winR;
-            } else {
-                winR = 0;
-            }
-            if (container.children[i].id == y) {
-                ++winY;
-            } else {
-                winY = 0;
-            }
-            if (winR == 4 || winY == 4) {
-                gameOver = 1;
-                if (!winner) {
-                    changeColor();
-                    winner = 1;
+                if (winR == 4 || winY == 4) {
+                    gameOver = 1;
+                    if (!winner) {
+                        changeColor();
+                        winner = 1;
+                    }
+                    message.textContent = `${currentPlayer} won!`
                 }
-                message.textContent = `${currentPlayer} won!`
-            }
-        }
-    }
-    for (let j = 38; j > 20; --j) {
-        for (let i = j; i > 2; i -= 6) {
-            if (container.children[i].id == r) {
-                ++winR;
-            } else {
-                winR = 0;
-            }
-            if (container.children[i].id == y) {
-                ++winY;
-            } else {
-                winY = 0;
-            }
-            if (winR == 4 || winY == 4) {
-                gameOver = 1;
-                if (!winner) {
-                    changeColor();
-                    winner = 1;
-                }
-                message.textContent = `${currentPlayer} won!`
             }
         }
     }
