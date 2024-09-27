@@ -86,14 +86,14 @@ function checkWin() {
                 } else {
                     winY = 0;
                 }
-                if (winR == 4 || winY == 4) {
-                    gameOver = 1;
-                    if (!winner) {
-                        changeColor();
-                        winner = 1;
-                    }
-                    message.textContent = `${currentPlayer} won!`
+            }
+            if (winR == 4 || winY == 4) {
+                gameOver = 1;
+                if (!winner) {
+                    changeColor();
+                    winner = 1;
                 }
+                message.textContent = `${currentPlayer} won!`
             }
             winR = 0;
             winY = 0;
