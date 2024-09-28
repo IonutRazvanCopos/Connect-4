@@ -1,11 +1,21 @@
 let currentPlayer = "red";
-const piece = document.getElementsByClassName(".piece");
 const container = document.querySelector("#board");
 const message = document.getElementById('message');
 let gameOver = 0, winR = 0, winY = 0, winner = 0;
 
-let cont = container.children;
+generateTable();
 
+function generateTable() {
+    for (let i = 0; i < 42; ++i) {
+        let piece = document.createElement("div");
+        piece.classList.add("piece");
+        piece.id = i;
+        piece.addEventListener('click', setPiece);
+        container.appendChild(piece);
+    }
+}
+
+let cont = container.children;
 let col = [
     [cont[0].id, cont[7].id, cont[14].id, cont[21].id,
 cont[28].id, cont[35].id],
@@ -46,9 +56,9 @@ function setPiece() {
         } else {
             once = 1;
         }
-        for (let i = 0; i < 8 && once == 0; ++i) {
-            for (let j = 0; j < 7 && once == 0; ++j) {
-                if (e.id == col[i][j]) {
+        for (let line = 0; line < 8 && once == 0; ++line) {
+            for (let column = 0; column < 7 && once == 0; ++column) {
+                if (e.id == col[line][column]) {
                     cont[num].style.backgroundColor = currentPlayer;
                     cont[num].id = `${currentPlayer}`;
                     changeColor();
@@ -69,13 +79,13 @@ function changeColor() {
     }
 }
 
-let cj = [7, 1, 6, 8];
+let reper = [7, 1, 6, 8];
 
 function checkWin() {
     let r = "red", y = "yellow";
-    for (let ft = 0; ft < 4; ++ft) {
+    for (let fourCheckings = 0; fourCheckings < 4; ++fourCheckings) {
         for (let j = 0; j < 42; ++j) {
-            for (let i = j; i < 42; i += cj[ft]) {
+            for (let i = j; i < 42; i += reper[fourCheckings]) {
                 if (cont[i].id == r) {
                     ++winR;
                 } else {
@@ -86,17 +96,17 @@ function checkWin() {
                 } else {
                     winY = 0;
                 }
-            }
-            if (winR == 4 || winY == 4) {
-                gameOver = 1;
-                if (!winner) {
-                    changeColor();
-                    winner = 1;
+                if (winR == 4 || winY == 4) {
+                    gameOver = 1;
+                    if (!winner) {
+                        changeColor();
+                        winner = 1;
+                    }
+                    message.textContent = `${currentPlayer} won!`
                 }
-                message.textContent = `${currentPlayer} won!`
             }
-            winR = 0;
             winY = 0;
+            winR = 0;
         }
     }
 }
