@@ -3,8 +3,6 @@ const container = document.querySelector("#board");
 const message = document.getElementById('message');
 let gameOver = 0, winR = 0, winY = 0, winner = 0;
 
-generateTable();
-
 function generateTable() {
     for (let i = 0; i < 42; ++i) {
         let piece = document.createElement("div");
@@ -15,28 +13,31 @@ function generateTable() {
     }
 }
 
+generateTable();
+
 let cont = container.children;
 let col = [
     [cont[0].id, cont[7].id, cont[14].id, cont[21].id,
-cont[28].id, cont[35].id],
-[cont[1].id, cont[8].id, cont[15].id, cont[22].id,
-cont[29].id, cont[36].id],
-[cont[2].id, cont[9].id, cont[16].id, cont[23].id,
-cont[30].id, cont[37].id],
-[cont[3].id, cont[10].id, cont[17].id, cont[24].id,
-cont[31].id, cont[38].id],
-[cont[4].id, cont[11].id, cont[18].id, cont[25].id,
-cont[32].id, cont[39].id],
-[cont[5].id, cont[12].id, cont[19].id, cont[26].id,
-cont[33].id, cont[40].id],
-[cont[6].id, cont[13].id, cont[20].id, cont[27].id,
-cont[34].id, cont[41].id]
+    cont[28].id, cont[35].id],
+    [cont[1].id, cont[8].id, cont[15].id, cont[22].id,
+    cont[29].id, cont[36].id],
+    [cont[2].id, cont[9].id, cont[16].id, cont[23].id,
+    cont[30].id, cont[37].id],
+    [cont[3].id, cont[10].id, cont[17].id, cont[24].id,
+    cont[31].id, cont[38].id],
+    [cont[4].id, cont[11].id, cont[18].id, cont[25].id,
+    cont[32].id, cont[39].id],
+    [cont[5].id, cont[12].id, cont[19].id, cont[26].id,
+    cont[33].id, cont[40].id],
+    [cont[6].id, cont[13].id, cont[20].id, cont[27].id,
+    cont[34].id, cont[41].id]
 ];
 
 function checkNr(num) {
     while (num < 35) {
         num += 7;
     }
+    max = num;
     while (cont[num].id == "red" || cont[num].id == "yellow") {
         num -= 7;
     }
@@ -102,7 +103,7 @@ function checkWin() {
                         changeColor();
                         winner = 1;
                     }
-                    message.textContent = `${currentPlayer} won!`
+                    message.textContent = `${currentPlayer} won!`;
                 }
             }
             winY = 0;
