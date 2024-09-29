@@ -1,10 +1,12 @@
 let currentPlayer = "red";
 const container = document.querySelector("#board");
 const message = document.getElementById('message');
-let gameOver = 0, winR = 0, winY = 0, winner = 0;
+let gameOver = false, winR = 0, winY = 0, winner = false;
+
+const max = 42, four = 4;
 
 function generateTable() {
-    for (let i = 0; i < 42; ++i) {
+    for (let i = 0; i < max; ++i) {
         let piece = document.createElement("div");
         piece.classList.add("piece");
         piece.id = i;
@@ -37,7 +39,6 @@ function checkNr(num) {
     while (num < 35) {
         num += 7;
     }
-    max = num;
     while (cont[num].id == "red" || cont[num].id == "yellow") {
         num -= 7;
     }
@@ -52,7 +53,7 @@ function setPiece() {
     container.addEventListener("click", (event) => {
         let e = event.target;
         let num = parseInt(`${e.id}`);
-        if (num < 42) {
+        if (num < max) {
             num = checkNr(num);
         } else {
             once = 1;
@@ -81,33 +82,54 @@ function changeColor() {
 }
 
 let reper = [7, 1, 6, 8];
+let array = [21, 37, 39, 15];
+let begin = [
+    [14, 7, 0, 1, 2, 3],
+    [20, 13, 6, 5, 4, 3]
+];
 
 function checkWin() {
     let r = "red", y = "yellow";
-    for (let fourCheckings = 0; fourCheckings < 4; ++fourCheckings) {
-        for (let j = 0; j < 42; ++j) {
-            for (let i = j; i < 42; i += reper[fourCheckings]) {
-                if (cont[i].id == r) {
-                    ++winR;
-                } else {
-                    winR = 0;
-                }
-                if (cont[i].id == y) {
-                    ++winY;
-                } else {
-                    winY = 0;
-                }
-                if (winR == 4 || winY == 4) {
-                    gameOver = 1;
-                    if (!winner) {
-                        changeColor();
-                        winner = 1;
-                    }
-                    message.textContent = `${currentPlayer} won!`;
-                }
+    for (let fourCheckings = 0; fourCheckings < four; ++fourCheckings) {
+        for (let i = 0; i < max && fourCheckings < 2; i += reper[fourCheckings]) {
+            if (cont[i].id == r) {
+                ++winR;
+            } else {
+                winR = 0;
             }
-            winY = 0;
-            winR = 0;
+            if (cont[i].id == y) {
+                ++winY;
+            } else {
+                winY = 0;
+            }
+            if (winR == four || winY == four) {
+                gameOver = true;
+                if (!winner) {
+                    changeColor();
+                    winner = 1;
+                }
+                message.textContent = `${currentPlayer} won!`;
+            }
+        }
+        for (let i = max - 1; i > -1 && fourCheckings > 1; i -= reper[fourCheckings]) {
+            if (cont[i].id == r) {
+                ++winR;
+            } else {
+                winR = 0;
+            }
+            if (cont[i].id == y) {
+                ++winY;
+            } else {
+                winY = 0;
+            }
+            if (winR == four || winY == four) {
+                gameOver = true;
+                if (!winner) {
+                    changeColor();
+                    winner = true;
+                }
+                message.textContent = `${currentPlayer} won!`;
+            }
         }
     }
 }
