@@ -85,7 +85,7 @@ let fourCheckings = [7, 1, 6, 8];
 
 function checkWin() {
     let r = "red", y = "yellow";
-    for (let target = 0; target < four; ++target, winR = 0, winY = 0) {
+    for (let target = 0; target < four; ++target) {
         for (let i = 0; i < max && target < 2; i += fourCheckings[target]) {
             if (cont[i].id == r) {
                 ++winR;
@@ -106,8 +106,9 @@ function checkWin() {
                 message.textContent = `${currentPlayer} won!`;
             }
         }
+        winR = 0, winY = 0;
     }
-    for (let target = 0; target < four; ++target, winR = 0, winY = 0) {
+    for (let target = 0; target < four; ++target) {
         for (let i = max - 1; i > -1 && target > 1; i -= fourCheckings[target]) {
             if (cont[i].id == r) {
                 ++winR;
@@ -128,5 +129,6 @@ function checkWin() {
                 message.textContent = `${currentPlayer} won!`;
             }
         }
+        winR = 0, winY = 0
     }
 }
