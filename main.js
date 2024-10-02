@@ -83,33 +83,39 @@ function changeColor() {
 
 let fourCheckings = [7, 1, 6, 8];
 
+function haveWinner(a, b) {
+    if (a == four || b == four) {
+        gameOver = true;
+        if (!winner) {
+            changeColor();
+            winner = 1;
+        }
+        message.textContent = `${currentPlayer} won!`;
+    }
+}
+
 function checkWin() {
     let r = "red", y = "yellow";
     for (let target = 0; target < four; ++target) {
-        for (let i = 0; i < max && target < 2; i += fourCheckings[target]) {
-            if (cont[i].id == r) {
-                ++winR;
-            } else {
-                winR = 0;
-            }
-            if (cont[i].id == y) {
-                ++winY;
-            } else {
-                winY = 0;
-            }
-            if (winR == four || winY == four) {
-                gameOver = true;
-                if (!winner) {
-                    changeColor();
-                    winner = 1;
+        for (let j = 0; j < max && target < 2; ++j) {
+            for (let i = j; i < max; i += fourCheckings[target]) {
+                if (cont[i].id == r) {
+                    ++winR;
+                } else {
+                    winR = 0;
                 }
-                message.textContent = `${currentPlayer} won!`;
+                if (cont[i].id == y) {
+                    ++winY;
+                } else {
+                    winY = 0;
+                }
+                haveWinner(winR, winY);
             }
-        }
         winR = 0, winY = 0;
+        }
     }
     for (let target = 0; target < four; ++target) {
-        for (let i = max - 1; i > -1 && target > 1; i -= fourCheckings[target]) {
+        for (let i = max - 1; i > -1; i -= fourCheckings[target]) {
             if (cont[i].id == r) {
                 ++winR;
             } else {
@@ -120,14 +126,7 @@ function checkWin() {
             } else {
                 winY = 0;
             }
-            if (winR == four || winY == four) {
-                gameOver = true;
-                if (!winner) {
-                    changeColor();
-                    winner = 1;
-                }
-                message.textContent = `${currentPlayer} won!`;
-            }
+            haveWinner(winR, winY);
         }
         winR = 0, winY = 0
     }
