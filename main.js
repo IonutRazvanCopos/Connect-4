@@ -3,7 +3,7 @@ const container = document.querySelector("#board");
 const message = document.getElementById('message');
 let gameOver = false, winR = 0, winY = 0, winner = false;
 
-const max = 42, four = 4, seven = 7;
+const max = 42, four = 4, seven = 7, lastLine = 35;
 
 function generateTable() {
     for (let i = 0; i < max; ++i) {
@@ -36,7 +36,7 @@ let col = [
 ];
 
 function checkNr(num) {
-    while (num < 35) {
+    while (num < lastLine) {
         num += seven;
     }
     while (cont[num].id == "red" || cont[num].id == "yellow") {
@@ -85,7 +85,7 @@ let fourCheckings = [7, 1, 6, 8];
 
 function checkWin() {
     let r = "red", y = "yellow";
-    for (let target = 0; target < four; ++target) {
+    for (let target = 0; target < four; ++target, winR = 0, winY = 0) {
         for (let i = 0; i < max && target < 2; i += fourCheckings[target]) {
             if (cont[i].id == r) {
                 ++winR;
@@ -107,7 +107,7 @@ function checkWin() {
             }
         }
     }
-    for (let target = 0; target < four; ++target) {
+    for (let target = 0; target < four; ++target, winR = 0, winY = 0) {
         for (let i = max - 1; i > -1 && target > 1; i -= fourCheckings[target]) {
             if (cont[i].id == r) {
                 ++winR;
