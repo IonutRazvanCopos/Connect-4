@@ -81,7 +81,19 @@ function changeColor() {
     }
 }
 
-let fourCheckings = [7, 1, 6, 8];
+let fourCheckings = [7, 1, 8, 6];
+let begin = [
+    [0, 1, 2, 3, 4, 5, 6],
+    [0, 7, 14, 21, 28, 35],
+    [14, 7, 0, 1, 2, 3],
+    [3, 4, 5, 6, 13, 20]
+];
+let stop = [
+    [35, 36, 37, 38, 39, 40, 41],
+    [6, 13, 20, 27, 34, 41],
+    [38, 39, 40, 41, 34, 27],
+    [21, 28, 35, 36, 37, 38]
+];
 
 function haveWinner(a, b) {
     if (a == four || b == four) {
@@ -96,9 +108,13 @@ function haveWinner(a, b) {
 
 function checkWin() {
     let r = "red", y = "yellow";
+    let columns = 7;
     for (let target = 0; target < four; ++target) {
-        for (let j = 0; j < max && target < 2; ++j) {
-            for (let i = j; i < max; i += fourCheckings[target]) {
+        if (target > 0) {
+            columns = 6;
+        }
+        for (let col = 0; col < columns; ++col) {
+            for (let i = begin[target][col]; i <= stop[target][col]; i += fourCheckings[target]) {
                 if (cont[i].id == r) {
                     ++winR;
                 } else {
@@ -113,22 +129,5 @@ function checkWin() {
             }
         winR = 0, winY = 0;
         }
-    }
-    winR = 0, winY = 0;
-    for (let target = 2; target < four; ++target) {
-        for (let i = max - 1; i > -1; i -= fourCheckings[target]) {
-            if (cont[i].id == r) {
-                ++winR;
-            } else {
-                winR = 0;
-            }
-            if (cont[i].id == y) {
-                ++winY;
-            } else {
-                winY = 0;
-            }
-            haveWinner(winR, winY);
-        }
-        winR = 0, winY = 0
     }
 }
