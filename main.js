@@ -114,7 +114,8 @@ function checkWin() {
         winR = 0, winY = 0;
         }
     }
-    for (let target = 0; target < four; ++target) {
+    winR = 0, winY = 0;
+    for (let target = 2; target < four; ++target) {
         for (let i = max - 1; i > -1; i -= fourCheckings[target]) {
             if (cont[i].id == r) {
                 ++winR;
