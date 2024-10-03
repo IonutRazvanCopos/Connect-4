@@ -27,6 +27,9 @@
     font-family: 'Courier New', Courier, monospace;
     font-size: 200%;
     font-weight: 600;
+    margin-left: 40%;
+    margin-right: 40%;
+    flex-wrap: wrap;
 }
 
 h1 {
