@@ -58,7 +58,7 @@ function setPiece() {
         } else {
             once = 1;
         }
-        for (let line = 0; line <= sereperven && once == 0; ++line) {
+        for (let line = 0; line <= reper && once == 0; ++line) {
             for (let column = 0; column < reper && once == 0; ++column) {
                 if (e.id == table[line][column]) {
                     piece[num].style.backgroundColor = currentPlayer;
