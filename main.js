@@ -102,6 +102,7 @@ function haveWinner(a, b) {
             changeColor();
             winner = 1;
         }
+        message.style.background = `${currentPlayer}`;
         message.textContent = `${currentPlayer} won!`;
     }
 }
