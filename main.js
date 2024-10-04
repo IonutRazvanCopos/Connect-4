@@ -3,7 +3,7 @@ const container = document.querySelector("#board");
 const message = document.getElementById('message');
 let gameOver = false, winR = 0, winY = 0, winner = false;
 
-const max = 42, connections = 4, reper = 7, lastLine = 35;
+const max = 42, connections = 4, mark = 7, lastLine = 35;
 
 function generateTable() {
     for (let pieceNumber = 0; pieceNumber < max; ++pieceNumber) {
@@ -37,10 +37,10 @@ let table = [
 
 function checkNr(num) {
     while (num < lastLine) {
-        num += reper;
+        num += mark;
     }
     while (piece[num].id == "red" || piece[num].id == "yellow") {
-        num -= reper;
+        num -= mark;
     }
     return num;
 }
@@ -58,8 +58,8 @@ function setPiece() {
         } else {
             once = 1;
         }
-        for (let line = 0; line <= reper && once == 0; ++line) {
-            for (let column = 0; column < reper && once == 0; ++column) {
+        for (let line = 0; line <= mark && once == 0; ++line) {
+            for (let column = 0; column < mark && once == 0; ++column) {
                 if (pieceNum.id == table[line][column]) {
                     piece[num].style.backgroundColor = currentPlayer;
                     piece[num].id = `${currentPlayer}`;
@@ -115,7 +115,8 @@ function checkWin() {
             columns = 6;
         }
         for (let table = 0; table < columns; ++table) {
-            for (let pointer = beginCalculation[target][table]; pointer <= stopCalculating[target][table]; pointer += fourCheckings[target]) {
+            for (let pointer = beginCalculation[target][table]; pointer <= stopCalculating[target][table];
+                 pointer += fourCheckings[target]) {
                 if (piece[pointer].id == red) {
                     ++winR;
                 } else {
@@ -128,7 +129,7 @@ function checkWin() {
                 }
                 haveWinner(winR, winY);
             }
-        winR = 0, winY = 0;
+            winR = 0, winY = 0;
         }
     }
 }
