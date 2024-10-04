@@ -111,12 +111,13 @@ function checkWin() {
     let red = "red", yellow = "yellow";
     let columns = 7;
     for (let target = 0; target < connections; ++target) {
+        let add = fourCheckings[target];
         if (target > 0) {
             columns = 6;
         }
         for (let table = 0; table < columns; ++table) {
-            for (let pointer = beginCalculation[target][table]; pointer <= stopCalculating[target][table];
-                 pointer += fourCheckings[target]) {
+            let begin = beginCalculation[target][table], stop = stopCalculating[target][table];
+            for (let pointer = begin; pointer <= stop; pointer += add) {
                 if (piece[pointer].id == red) {
                     ++winR;
                 } else {
