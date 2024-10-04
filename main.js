@@ -6,10 +6,10 @@ let gameOver = false, winR = 0, winY = 0, winner = false;
 const max = 42, connections = 4, reper = 7, lastLine = 35;
 
 function generateTable() {
-    for (let i = 0; i < max; ++i) {
+    for (let pieceNumber = 0; pieceNumber < max; ++pieceNumber) {
         let piece = document.createElement("div");
         piece.classList.add("piece");
-        piece.id = i;
+        piece.id = pieceNumber;
         piece.addEventListener('click', setPiece);
         container.appendChild(piece);
     }
@@ -51,8 +51,8 @@ function setPiece() {
         return;
     }
     container.addEventListener("click", (event) => {
-        let e = event.target;
-        let num = parseInt(`${e.id}`);
+        let pieceNum = event.target;
+        let num = parseInt(`${pieceNum.id}`);
         if (num < max) {
             num = checkNr(num);
         } else {
@@ -60,7 +60,7 @@ function setPiece() {
         }
         for (let line = 0; line <= reper && once == 0; ++line) {
             for (let column = 0; column < reper && once == 0; ++column) {
-                if (e.id == table[line][column]) {
+                if (pieceNum.id == table[line][column]) {
                     piece[num].style.backgroundColor = currentPlayer;
                     piece[num].id = `${currentPlayer}`;
                     changeColor();
@@ -95,8 +95,8 @@ let stopCalculating = [
     [21, 28, 35, 36, 37, 38]
 ];
 
-function haveWinner(a, b) {
-    if (a == connections || b == connections) {
+function haveWinner(Red, Yellow) {
+    if (Red == connections || Yellow == connections) {
         gameOver = true;
         if (!winner) {
             changeColor();
@@ -108,20 +108,20 @@ function haveWinner(a, b) {
 }
 
 function checkWin() {
-    let r = "red", y = "yellow";
+    let red = "red", yellow = "yellow";
     let columns = 7;
     for (let target = 0; target < connections; ++target) {
         if (target > 0) {
             columns = 6;
         }
         for (let table = 0; table < columns; ++table) {
-            for (let i = beginCalculation[target][table]; i <= stopCalculating[target][table]; i += fourCheckings[target]) {
-                if (piece[i].id == r) {
+            for (let pointer = beginCalculation[target][table]; pointer <= stopCalculating[target][table]; pointer += fourCheckings[target]) {
+                if (piece[pointer].id == red) {
                     ++winR;
                 } else {
                     winR = 0;
                 }
-                if (piece[i].id == y) {
+                if (piece[pointer].id == yellow) {
                     ++winY;
                 } else {
                     winY = 0;
