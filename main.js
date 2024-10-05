@@ -18,22 +18,6 @@ function generateTable() {
 generateTable();
 
 let piece = container.children;
-let table = [
-    [piece[0].id, piece[7].id, piece[14].id, piece[21].id,
-    piece[28].id, piece[35].id],
-    [piece[1].id, piece[8].id, piece[15].id, piece[22].id,
-    piece[29].id, piece[36].id],
-    [piece[2].id, piece[9].id, piece[16].id, piece[23].id,
-    piece[30].id, piece[37].id],
-    [piece[3].id, piece[10].id, piece[17].id, piece[24].id,
-    piece[31].id, piece[38].id],
-    [piece[4].id, piece[11].id, piece[18].id, piece[25].id,
-    piece[32].id, piece[39].id],
-    [piece[5].id, piece[12].id, piece[19].id, piece[26].id,
-    piece[33].id, piece[40].id],
-    [piece[6].id, piece[13].id, piece[20].id, piece[27].id,
-    piece[34].id, piece[41].id]
-];
 
 function checkNr(num) {
     while (num < lastLine) {
@@ -60,7 +44,7 @@ function setPiece() {
         }
         for (let line = 0; line <= mark && once == 0; ++line) {
             for (let column = 0; column < mark && once == 0; ++column) {
-                if (pieceNum.id == table[line][column]) {
+                if (pieceNum.id < 58) {
                     piece[num].style.backgroundColor = currentPlayer;
                     piece[num].id = `${currentPlayer}`;
                     changeColor();
