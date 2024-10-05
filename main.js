@@ -29,6 +29,10 @@ function checkNr(num) {
     return num;
 }
 
+function isNumber(value) {
+    return typeof value === 'number';
+  }
+
 function setPiece() {
     let once = 0;
     if (gameOver) {
@@ -44,7 +48,7 @@ function setPiece() {
         }
         for (let line = 0; line <= mark && once == 0; ++line) {
             for (let column = 0; column < mark && once == 0; ++column) {
-                if (pieceNum.id < 58) {
+                if (!isNumber(pieceNum.id)) {
                     piece[num].style.backgroundColor = currentPlayer;
                     piece[num].id = `${currentPlayer}`;
                     changeColor();
