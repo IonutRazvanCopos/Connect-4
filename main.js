@@ -119,14 +119,11 @@ function checkWin() {
             let begin = beginCalculation[target][table], stop = stopCalculating[target][table];
             for (let pointer = begin; pointer <= stop; pointer += add) {
                 if (piece[pointer].id == red) {
-                    ++winR;
+                    ++winR, winY = 0;
+                } else if (piece[pointer].id == yellow) {
+                    ++winY, winR = 0;
                 } else {
-                    winR = 0;
-                }
-                if (piece[pointer].id == yellow) {
-                    ++winY;
-                } else {
-                    winY = 0;
+                    winR = 0, winY = 0;
                 }
                 haveWinner(winR, winY);
             }
