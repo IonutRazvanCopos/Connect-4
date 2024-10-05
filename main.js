@@ -2,7 +2,6 @@ let currentPlayer = "red";
 const container = document.querySelector("#board");
 const message = document.getElementById('message');
 let gameOver = false, winR = 0, winY = 0, winner = false;
-
 const max = 42, connections = 4, mark = 7, lastLine = 35;
 
 function generateTable() {
