@@ -17,6 +17,16 @@ function generateTable() {
 generateTable();
 
 let piece = container.children;
+let table = new Array(max);
+
+for (let line = 0, num = 0; line < mark; ++line) {
+    table[line] = new Array(max);
+    for (let column = 0; column < mark - 1; ++column, ++num) {
+        table[line][column] = num;
+    }
+}
+
+console.log(table);
 
 function checkNr(num) {
     while (num < lastLine) {
@@ -27,10 +37,6 @@ function checkNr(num) {
     }
     return num;
 }
-
-function isNumber(value) {
-    return typeof value === 'number';
-  }
 
 function setPiece() {
     let once = 0;
@@ -47,7 +53,7 @@ function setPiece() {
         }
         for (let line = 0; line <= mark && once == 0; ++line) {
             for (let column = 0; column < mark && once == 0; ++column) {
-                if (!isNumber(pieceNum.id)) {
+                if (pieceNum.id == table[line][column]) {
                     piece[num].style.backgroundColor = currentPlayer;
                     piece[num].id = `${currentPlayer}`;
                     changeColor();
