@@ -26,8 +26,6 @@ for (let line = 0, num = 0; line < mark; ++line) {
     }
 }
 
-console.log(table);
-
 function checkNr(num) {
     while (num < lastLine) {
         num += mark;
