@@ -86,8 +86,8 @@ let stopCalculating = [
     [21, 28, 35, 36, 37, 38]
 ];
 
-function haveWinner(Red, Yellow) {
-    if (Red == connections || Yellow == connections) {
+function haveWinner(red, yellow) {
+    if (red == connections || yellow == connections) {
         gameOver = true;
         if (!winner) {
             changeColor();
