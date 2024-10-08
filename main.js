@@ -5,33 +5,40 @@ let gameOver = false, winR = 0, winY = 0, winner = false;
 const max = 42, connections = 4, mark = 7, lastLine = 35;
 
 function generateTable() {
-    for (let pieceNumber = 0; pieceNumber < max; ++pieceNumber) {
-        let piece = document.createElement("div");
-        piece.classList.add("piece");
-        piece.id = pieceNumber;
-        piece.addEventListener('click', setPiece);
-        container.appendChild(piece);
+    for (let column = 0, idNum = 0; column < mark; ++column) {
+        let columnPiece = document.createElement("div");
+        for (let line = 0; line < mark - 1; ++line, ++idNum) {
+            let linePiece = document.createElement("div");
+            columnPiece.appendChild(linePiece);
+            linePiece.id = idNum;
+            linePiece.classList.add("piece");
+        }
+        columnPiece.classList.add("column");
+        columnPiece.addEventListener('click', setPiece);
+        container.appendChild(columnPiece);
     }
 }
 
 generateTable();
 
-let piece = container.children;
+let piece = document.getElementsByClassName("piece");
 let table = new Array(max);
 
-for (let line = 0, num = 0; line < mark; ++line) {
+for (let line = 0, num = 0; line < mark - 1; ++line) {
     table[line] = new Array(max);
-    for (let column = 0; column < mark - 1; ++column, ++num) {
+    for (let column = 0; column < mark; ++column, ++num) {
         table[line][column] = num;
     }
 }
 
+let maxNum = [5, 11, 17, 23, 29, 35, 41];
+
 function checkNr(num) {
-    while (num < lastLine) {
-        num += mark;
+    while (maxNum.every(maxNum => num != maxNum)) {
+        ++num;
     }
     while (piece[num].id == "red" || piece[num].id == "yellow") {
-        num -= mark;
+        --num;
     }
     return num;
 }
@@ -44,7 +51,7 @@ function setPiece() {
     container.addEventListener("click", (event) => {
         let pieceNum = event.target;
         let num = parseInt(`${pieceNum.id}`);
-        if (num < max) {
+        if (maxNum.every(maxNum => num != maxNum)) {
             num = checkNr(num);
         } else {
             once = 1;
@@ -72,18 +79,18 @@ function changeColor() {
     }
 }
 
-let fourCheckings = [7, 1, 8, 6];
+let fourCheckings = [1, 6, 7, 5];
 let beginCalculation = [
-    [0, 1, 2, 3, 4, 5, 6],
-    [0, 7, 14, 21, 28, 35],
-    [14, 7, 0, 1, 2, 3],
-    [3, 4, 5, 6, 13, 20]
+    [0, 6, 12, 18, 24, 30, 36],
+    [0, 1, 2, 3, 4, 5],
+    [2, 1, 0, 6, 12, 18],
+    [3, 4, 5, 11, 17, 23]
 ];
 let stopCalculating = [
-    [35, 36, 37, 38, 39, 40, 41],
-    [6, 13, 20, 27, 34, 41],
-    [38, 39, 40, 41, 34, 27],
-    [21, 28, 35, 36, 37, 38]
+    [5, 11, 17, 23, 29, 35, 41],
+    [36, 37, 38, 39, 40, 41],
+    [23, 29, 35, 41, 40, 39],
+    [18, 24, 30, 36, 37, 38]
 ];
 
 function haveWinner(red, yellow) {
